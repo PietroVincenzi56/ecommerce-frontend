@@ -1,1 +1,11 @@
-<p>product-list works!</p>
+<div *ngIf="products.length === 0">
+  Nessun prodotto disponibile.
+</div>
+
+<ul *ngIf="products.length > 0">
+  <li *ngFor="let product of products">
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <p>Prezzo: {{ product.price | currency:'EUR' }}</p>
+  </li>
+</ul>
