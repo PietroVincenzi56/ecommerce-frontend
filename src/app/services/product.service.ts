@@ -31,7 +31,10 @@ export class ProductService {
   getPagedProducts(pageNumber: number, pageSize: number, sortBy: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.url}/paged?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}`);
   }
-
+  
+  getProductById(id: number): Observable<Product> {
+  return this.http.get<Product>(`${this.url}/${id}`);
+}
   createProduct(product: Product): Observable<any> {
     return this.http.post(this.url, product);
   }
