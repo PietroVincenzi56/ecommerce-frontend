@@ -1,0 +1,35 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #232f3e;
+  color: white;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.welcome-text {
+  font-size: 16px;
+  color: #fff;
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-button {
+  background-color: #febd69;
+  color: #111;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
