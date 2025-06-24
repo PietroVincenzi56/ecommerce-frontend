@@ -1,3 +1,12 @@
+<div class="filter-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchName"
+    placeholder="Inserisci il prodotto che stai cercando"
+  />
+  <button (click)="searchByName()">Cerca</button>
+</div>
+
 <div *ngIf="products.length === 0">
   Nessun prodotto disponibile.
 </div>
