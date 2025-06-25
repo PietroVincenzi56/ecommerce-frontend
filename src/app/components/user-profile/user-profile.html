@@ -1,1 +1,39 @@
-<p>user-profile works!</p>
+<div class="user-profile-container">
+  <div class="user-details">
+    <h2>{{ user.name }} {{ user.surname }}</h2>
+    <p><strong>Telefono</strong> {{ user.telephoneNumber }}</p>
+    <p><strong>Indirizzo</strong> {{ user.address }}</p>
+    <p>
+  <strong>Credito:</strong> €{{ user.balance | number: '1.2-2' }}
+</p>
+
+<div class="recharge-form">
+  <input
+    type="number"
+    [(ngModel)]="rechargeAmount"
+    min="1"
+    step="0.01"
+    placeholder="€ Importo"
+  />
+  <button (click)="rechargeBalance()">Ricarica Credito</button>
+</div>
+
+<p *ngIf="rechargeMessage" class="message">{{ rechargeMessage }}</p>
+  </div>
+
+  <div class="orders">
+    <h3>I tuoi ordini:</h3>
+    <ul>
+      <li *ngFor="let order of orders">
+        <strong>Ordine #{{ order.id }}</strong> - {{ order.time | date: 'short' }}
+        <ul>
+          <li *ngFor="let po of order.productOrders">
+            <a (click)="goToProductDetail(po.product.id)">
+                {{ po.product.name + ' × ' + po.quantity + ' @ €' + po.priceAtPurchase }}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

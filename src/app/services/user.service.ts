@@ -16,5 +16,9 @@ export class UserService {
     return this.http.get<User>(`${this.url}/me`);
   }
 
+  rechargeBalance(userId: number, amount: number): Observable<User> {
+  return this.http.post<User>(`/api/users/${userId}/recharge`, amount);
+}
+
 
 }

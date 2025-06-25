@@ -4,8 +4,16 @@ import { ProductDetail } from './components/product-detail/product-detail';
 import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
-  { path: '', component: ProductList },  
-  { path: 'product/:id', component: ProductDetail},
+  {
+    path: '',
+    loadComponent: () =>
+      import('./components/product-list/product-list').then(m => m.ProductList)
+  },  
+  {
+  path: 'product/:id',
+  loadComponent: () =>
+    import('./components/product-detail/product-detail').then(m => m.ProductDetail)
+  },
   {
     path: 'user-info',
     loadComponent: () =>
@@ -16,5 +24,12 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./components/admin-dashboard/admin-dashboard').then(m => m.AdminDashboard),
   canActivate: [adminGuard] 
+  },
+  {
+  path: 'cart',
+  loadComponent: () =>
+    import('./components/cart/cart').then(m => m.CartComponent),
   }
+
+
 ];
