@@ -21,3 +21,13 @@
 .orders li {
   margin-bottom: 0.5rem;
 }
+
+.recharge-form {
+  margin-top: 10px;
+}
+
+.recharge-form input {
+  width: 100px;
+  margin-right: 8px;
+  padding: 4px;
+}
