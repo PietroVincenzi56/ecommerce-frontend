@@ -3,6 +3,7 @@ import { Product } from '../model/product.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 export interface CartItem {
   product: Product;
   quantity: number;
@@ -13,27 +14,27 @@ export interface CartItem {
 })
 
 export class CartService {
-  private baseUrl = 'http://localhost:8081/cart';
+  private url = 'http://localhost:8081/cart';
 
   constructor(private http: HttpClient) {}
 
     addToCart(productId: number, quantity: number): Observable<CartItem[]> {
     return this.http.post<CartItem[]>(
-      `${this.baseUrl}/add?productId=${productId}&quantity=${quantity}`,
+      `${this.url}/add?productId=${productId}&quantity=${quantity}`,
       {}
     );
   }
 
   getCart(): Observable<CartItem[]> {
-    return this.http.get<CartItem[]>(`${this.baseUrl}`);
+    return this.http.get<CartItem[]>(`${this.url}`);
   }
 
   removeItem(productId: number): Observable<CartItem[]> {
-    return this.http.delete<CartItem[]>(`${this.baseUrl}/remove/${productId}`);
+    return this.http.delete<CartItem[]>(`${this.url}/remove/${productId}`);
   }
 
   clearCart(): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/clear`);
+    return this.http.delete<void>(`${this.url}/clear`);
   }
 }
 

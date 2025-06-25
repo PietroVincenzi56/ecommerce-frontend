@@ -1,0 +1,12 @@
+.cart-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.cart-item {
+  background: #f9f9f9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}

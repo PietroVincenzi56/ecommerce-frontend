@@ -1,1 +1,21 @@
-<p>cart works!</p>
+<div class="cart-container">
+  <h2>Il tuo carrello</h2>
+
+  <div *ngIf="cartItems.length === 0">
+    Il carrello è vuoto.
+  </div>
+
+  <div *ngFor="let item of cartItems" class="cart-item">
+    <p><strong>{{ item.product.name }}</strong></p>
+    <p>Prezzo: {{ item.product.price | currency:'EUR' }}</p>
+    <p>Quantità: {{ item.quantity }}</p>
+    <p>Totale: {{ item.product.price * item.quantity | currency:'EUR' }}</p>
+    <button (click)="removeItem(item.product.id)">Rimuovi</button>
+    <hr />
+  </div>
+
+  <div *ngIf="cartItems.length > 0">
+    <p><strong>Totale Carrello: {{ getTotal() | currency:'EUR' }}</strong></p>
+    <button (click)="orderNow()" [disabled]="cartItems.length === 0">Ordina Ora</button>
+  </div>
+</div>
