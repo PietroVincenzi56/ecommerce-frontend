@@ -18,7 +18,12 @@ export class UserService {
 
   rechargeBalance(userId: number, amount: number): Observable<User> {
   return this.http.post<User>(`/api/users/${userId}/recharge`, amount);
+  }
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.url);
+  }
+
 }
 
 
-}
+

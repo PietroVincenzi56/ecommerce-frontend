@@ -1,1 +1,51 @@
-<p>admin-dashboard works!</p>
+<div class="admin-dashboard">
+  <h2>Dashboard Amministratore</h2>
+
+  <!-- Sezione Utenti -->
+  <section>
+    <h3>Utenti Registrati</h3>
+    <ul>
+      <li *ngFor="let user of users">
+        {{ user.name }} {{ user.surname }} - {{ user.email }}
+      </li>
+    </ul>
+  </section>
+
+  <!-- Sezione Gestione Prodotti -->
+  <section>
+    <h3>Gestione Prodotti</h3>
+
+    <!-- Aggiunta Prodotto -->
+    <h4>Aggiungi Nuovo Prodotto</h4>
+    <input [(ngModel)]="newProduct.name" placeholder="Nome" />
+    <input [(ngModel)]="newProduct.description" placeholder="Descrizione" />
+    <input [(ngModel)]="newProduct.price" type="number" placeholder="Prezzo" />
+    <input [(ngModel)]="newProduct.quantity" type="number" placeholder="Quantità" />
+    <button (click)="addProduct()">Aggiungi</button>
+
+    <!-- Lista Prodotti -->
+    <h4>Prodotti esistenti</h4>
+    <ul>
+      <li *ngFor="let product of products">
+        
+        <!-- Vista normale -->
+        <div *ngIf="editingProduct?.id !== product.id">
+          <strong>{{ product.name }}</strong> - €{{ product.price }}
+          <button (click)="startEditing(product)">Modifica</button>
+          <button (click)="deleteProduct(product.id)">Elimina</button>
+        </div>
+
+        <!-- Vista modifica -->
+        <div *ngIf="editingProduct as ep">
+          <input [(ngModel)]="ep.name" placeholder="Nome" />
+          <input [(ngModel)]="ep.description" placeholder="Descrizione" />
+          <input [(ngModel)]="ep.price" type="number" placeholder="Prezzo" />
+          <input [(ngModel)]="ep.quantity" type="number" placeholder="Quantità" />
+          <button (click)="saveProduct()">Salva</button>
+          <button (click)="cancelEdit()">Annulla</button>
+        </div>
+
+      </li>
+    </ul>
+  </section>
+</div>
