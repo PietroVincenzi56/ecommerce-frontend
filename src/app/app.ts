@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router, RouterOutlet } from '@angular/router';
+import { Route, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule, RouterModule],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
@@ -27,7 +28,7 @@ export class App implements OnInit {
       const userDetails = await this.keycloakService.loadUserProfile();
       this.userName = userDetails.firstName ?? userDetails.username ?? '';
       const roles = await this.keycloakService.getUserRoles();
-      this.isAdmin = roles.includes('admin');
+      this.isAdmin = roles.includes('Admin');
     }
   }
 

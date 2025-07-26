@@ -5,21 +5,18 @@ import { Order } from '../../model/order.model';
 import { User } from '../../model/user.model'; 
 import { UserService } from '../../services/user.service';
 import { OrderService } from '../../services/order.service';
-
-
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './cart.html',
-  styleUrl: './cart.css'
+  styleUrls: ['./cart.css']
 })
-
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
   user!: User;
-
 
   constructor(
     private cartService: CartService,
@@ -27,28 +24,28 @@ export class CartComponent implements OnInit {
     private orderService: OrderService
   ) {}
 
-ngOnInit(): void {
-  this.userService.getCurrentUser().subscribe({
-    next: (user) => {
-      this.user = user;
-      this.loadCart();
-    },
-    error: (err) => {
-      console.error('Errore nel recupero utente:', err);
-    }
-  });
-}
+  ngOnInit(): void {
+    this.userService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.user = user;
+        this.loadCart();
+      },
+      error: (err) => {
+        console.error('Errore nel recupero utente:', err);
+      }
+    });
+  }
 
   loadCart(): void {
     this.cartService.getCart().subscribe({
-      next: (items) => this.cartItems = items,
+      next: (cart) => this.cartItems = cart.items,
       error: (err) => console.error('Errore nel caricamento del carrello', err)
     });
   }
 
   removeItem(productId: number): void {
     this.cartService.removeItem(productId).subscribe({
-      next: (items) => this.cartItems = items,
+      next: (cart) => this.cartItems = cart.items,
       error: (err) => console.error('Errore nella rimozione', err)
     });
   }
@@ -58,10 +55,10 @@ ngOnInit(): void {
   }
 
   orderNow(): void {
-   console.log('Ordina ora cliccato');
-   if (!this.user || this.cartItems.length === 0) return;
+    console.log('Ordina ora cliccato');
+    if (!this.user || this.cartItems.length === 0) return;
 
-    const productOrders = this.cartItems.map(item => ({    //per ogni item trasforma in ProductOrder
+    const productOrders = this.cartItems.map(item => ({
       product: item.product,
       quantity: item.quantity,
       priceAtPurchase: item.product.price
@@ -79,11 +76,17 @@ ngOnInit(): void {
             this.cartItems = [];
             alert('Ordine effettuato con successo!');
           },
-          error: err => console.error('Errore durante lo svuotamento del carrelo', err)
+          error: err => console.error('Errore durante lo svuotamento del carrello', err)
         });
       },
-      error: _err => alert('Errore durante l\'ordine: ')
+        error: (err) => {
+      console.error('Errore durante l\'ordine:', err);
+      let message = 'Errore durante l\'ordine.';
+      if (err.error && err.error.message) {
+        message += ' ' + err.error.message;
+      }
+      alert(message);
+    }
     });
   }
-
 }

@@ -31,5 +31,4 @@ export const routes: Routes = [
     import('./components/cart/cart').then(m => m.CartComponent),
   }
 
-
 ];

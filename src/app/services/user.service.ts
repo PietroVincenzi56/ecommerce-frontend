@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private url = 'http://localhost:8081/products'; 
+  private url = 'http://localhost:8081/users'; 
   constructor(private http: HttpClient) {}
 
   getCurrentUser(): Observable<User> { //dentro ha la sincronizzazione con keycloack ricordare
@@ -17,8 +17,9 @@ export class UserService {
   }
 
   rechargeBalance(userId: number, amount: number): Observable<User> {
-  return this.http.post<User>(`/api/users/${userId}/recharge`, amount);
+  return this.http.post<User>(`${this.url}/${userId}/recharge`, amount);
   }
+
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.url);
   }

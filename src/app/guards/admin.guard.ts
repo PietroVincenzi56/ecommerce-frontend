@@ -8,5 +8,7 @@ export const adminGuard: CanActivateFn = async () => {
   if (!isLoggedIn) return false;
 
   const roles = await keycloak.getUserRoles();
-  return roles.includes('admin');
+  return roles.includes('Admin');
 };
+
+

@@ -1,29 +1,24 @@
-import { importProvidersFrom } from '@angular/core';
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import Keycloak from 'keycloak-js';
 
-const keycloak = new KeycloakService();
+const keycloak = new Keycloak({
+  url: 'http://localhost:8080',
+  realm: 'ecommerce_realm',
+  clientId: 'ecommerce-frontend',
+});
 
-export function initializeKeycloak() {
+export function initializeKeycloak(): Promise<boolean> {
   return keycloak.init({
-    config: {
-      url: 'http://localhost:8081/auth', 
-      realm: 'ecommerce_realm',
-      clientId: 'ecommerce-frontend',
-    },
-    initOptions: {
-      onLoad: 'check-sso',
-      silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html',
-    },
-    loadUserProfileAtStartUp: true,
+    onLoad: 'check-sso',
+    silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html'
+    //onLoad: 'login-required',
+    //checkLoginIframe: false, 
+    //pkceMethod: 'S256',
+    //flow: 'standard',
   });
 }
 
 export function getKeycloakProviders() {
   return [
-    importProvidersFrom(KeycloakAngularModule),
-    {
-      provide: KeycloakService,
-      useValue: keycloak,
-    },
+    { provide: Keycloak, useValue: keycloak }
   ];
 }

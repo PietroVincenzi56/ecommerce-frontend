@@ -1,7 +1,9 @@
 <nav class="navbar">
   <div class="navbar-left">
-    <img src="assets/logo.png" alt="eCommerce" class="logo" />
-    <span *ngIf="isLoggedIn" class="welcome-text">Ciao, {{ userName }}</span>
+    <a routerLink="/">
+      <img src="assets/icona.png" alt="eCommerce" class="logo" />
+    </a>
+      <span *ngIf="isLoggedIn" class="welcome-text">Ciao, {{ userName }}</span>
   </div>
 
   <div class="navbar-right">

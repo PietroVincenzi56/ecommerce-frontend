@@ -49,7 +49,7 @@ export class ProductDetail implements OnInit {
   }
   // chiamata backend per sincronizzare i dati utente
     const user = await this.userService.getCurrentUser(); // fa una chiamata a /users/me
-
+    
     if (!this.product?.id) {
       console.error('Prodotto non valido');
       return;
@@ -65,14 +65,14 @@ export class ProductDetail implements OnInit {
   }
 
   increase() {
-  if (this.quantity < this.maxQuantity) {
-    this.quantity++;
+    if (this.quantity < this.maxQuantity) {
+      this.quantity++;
+    }
   }
-}
-decrease() {
-  if (this.quantity > 1) {
-    this.quantity--;
+  decrease() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
   }
-}
 
 }
