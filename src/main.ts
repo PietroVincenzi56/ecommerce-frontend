@@ -3,9 +3,10 @@ import { importProvidersFrom } from '@angular/core';
 import { App } from './app/app';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { APP_INITIALIZER } from '@angular/core';
-import { provideRouter } from '@angular/router'; 
-import { HttpClientModule } from '@angular/common/http';
-import { routes } from './app/app.routes';       
+import { provideRouter } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { routes } from './app/app.routes';
+import { AuthInterceptor } from './app/guards/auth.interceptor';  // correggi il path se serve
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -25,7 +26,12 @@ function initializeKeycloak(keycloak: KeycloakService) {
 bootstrapApplication(App, {
   providers: [
     importProvidersFrom(KeycloakAngularModule, HttpClientModule),
-    provideRouter(routes), 
+    provideRouter(routes),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,

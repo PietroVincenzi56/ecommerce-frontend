@@ -6,6 +6,9 @@ import { ProductService } from '../../services/product.service';
 import { User } from '../../model/user.model';
 import { Product } from '../../model/product.model';
 
+import { KeycloakService } from 'keycloak-angular';
+
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
@@ -29,6 +32,7 @@ export class AdminDashboard implements OnInit {
 
 
   constructor(
+    private keycloakService: KeycloakService,
     private userService: UserService,
     private productService: ProductService
   ) {}
@@ -36,10 +40,11 @@ export class AdminDashboard implements OnInit {
     ngOnInit(): void {
     this.loadUsers();
     this.loadProducts();
+  
   }
 
   loadUsers() {
-    this.userService.getAllUsers().subscribe({
+      this.userService.getAllUsers().subscribe({
       next: users => this.users = users,
       error: err => console.error('Errore caricamento utenti:', err)
     });
