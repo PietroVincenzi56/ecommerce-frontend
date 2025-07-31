@@ -36,4 +36,14 @@ export class App implements OnInit {
     this.keycloakService.login({ redirectUri: window.location.href });
   }
 
+  async goToCart() {
+    const loggedIn = await this.keycloakService.isLoggedIn();
+    if (!loggedIn) {
+      await this.keycloakService.login({ redirectUri: window.location.href });
+      return; // dopo il login, l’utente sarà riportato qui di nuovo loggato
+    }
+    
+    this.router.navigate(['/cart']);
+  }
+
 }

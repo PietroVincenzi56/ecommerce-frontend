@@ -7,7 +7,8 @@
   </div>
 
   <div class="navbar-right">
-    <a routerLink="/cart" class="nav-button">🛒 Carrello</a>
+    <button (click)="goToCart()" class="nav-button"> 🛒 Carrello </button>
+
 
     <button *ngIf="!isLoggedIn" (click)="login()" class="nav-button">
       Login

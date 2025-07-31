@@ -58,7 +58,7 @@ export class ProductDetail implements OnInit {
     //  Utente loggato: aggiungi al carrello
     this.cartService.addToCart(this.product.id, quantity).subscribe({
       next: () => {
-        console.log(`Aggiunti ${quantity} prodotti al carrello`);
+        alert(`Aggiunti ${quantity} prodotti al carrello`);
       },
       error: (err) => console.error('Errore nell\'aggiunta al carrello:', err),
     });
