@@ -29,7 +29,13 @@ export class ProductDetail implements OnInit {
     private userService: UserService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+  const isLoggedIn = await this.keycloakService.isLoggedIn();
+
+  if (isLoggedIn) {
+    this.userService.getCurrentUser();
+  }
+
   const id = this.route.snapshot.paramMap.get('id');
   if (id) { //controllo che sia giusto l'id
     this.productService.getProductById(+id).subscribe({

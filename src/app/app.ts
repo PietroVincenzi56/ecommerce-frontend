@@ -3,7 +3,7 @@ import { Route, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,10 @@ export class App implements OnInit {
   isAdmin = false;
   userName: string = '';
 
-  constructor(private keycloakService: KeycloakService, private router: Router) {}
+  constructor(
+    private keycloakService: KeycloakService, 
+     private userService: UserService,
+    private router: Router) {}
 
   async ngOnInit() {
     this.isLoggedIn = await this.keycloakService.isLoggedIn();
@@ -40,9 +43,9 @@ export class App implements OnInit {
     const loggedIn = await this.keycloakService.isLoggedIn();
     if (!loggedIn) {
       await this.keycloakService.login({ redirectUri: window.location.href });
-      return; // dopo il login, l’utente sarà riportato qui di nuovo loggato
+      return; // cambiare in return a cart
     }
-    
+
     this.router.navigate(['/cart']);
   }
 
