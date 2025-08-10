@@ -20,6 +20,12 @@
     <a *ngIf="isLoggedIn && isAdmin" routerLink="/admin" class="nav-button">
       Gestione eCommerce
     </a>
+
+    <a *ngIf="isLoggedIn" (click)="logout()" class="nav-button">
+      Esci
+    </a>
+
+
   </div>
 </nav>
 

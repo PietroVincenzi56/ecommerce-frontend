@@ -49,4 +49,8 @@ export class App implements OnInit {
     this.router.navigate(['/cart']);
   }
 
+  logout(){
+    this.keycloakService.logout(window.location.origin);
+  }
+
 }

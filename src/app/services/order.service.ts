@@ -22,7 +22,7 @@ export class OrderService {
   }
   
   getOrdersByUser(user: User): Observable<Order[]> {
-    return this.http.get<Order[]>(`${this.url}/${user.id}`);
+    return this.http.get<Order[]>(`${this.url}/user/${user.id}`);
   }
 
   getOrdersByUserInPeriod(userId: number, startDate: string, endDate: string): Observable<Order[]> {
