@@ -3,30 +3,24 @@
     <a routerLink="/">
       <img src="assets/icona.png" alt="eCommerce" class="logo" />
     </a>
-      <span *ngIf="isLoggedIn" class="welcome-text">Ciao, {{ userName }}</span>
+    <span *ngIf="isLoggedIn" class="welcome-text">Ciao, {{ userName }}</span>
   </div>
 
   <div class="navbar-right">
-    <button *ngIf="!isAdmin" (click)="goToCart()" class="nav-button"> 🛒 Carrello </button>
+    <button *ngIf="!isAdmin" (click)="goToCart()" class="nav-button">🛒 Carrello</button>
 
-    <button *ngIf="!isLoggedIn" (click)="login()" class="nav-button">
-      Login
-    </button>
-    <a *ngIf="isLoggedIn && !isAdmin" routerLink="/user-info" class="nav-button">
-      Profilo
-    </a>
+    <button *ngIf="!isLoggedIn" (click)="login()" class="nav-button">Login</button>
 
-    <a *ngIf="isLoggedIn && isAdmin" routerLink="/admin" class="nav-button">
-      Gestione eCommerce
-    </a>
+    <a *ngIf="isLoggedIn && !isAdmin" routerLink="/user-info" class="nav-button">Profilo</a>
 
-    <a *ngIf="isLoggedIn" (click)="logout()" class="nav-button">
-      Esci
-    </a>
+    <a *ngIf="isLoggedIn && isAdmin" routerLink="/admin" class="nav-button">Gestione eCommerce</a>
 
-
+    <a *ngIf="isLoggedIn" (click)="logout()" class="nav-button">Esci</a>
   </div>
 </nav>
 
+<!-- per evitare che il contenuto finisca sotto la navbar -->
+<div style="padding-top: 10px;">
+  <router-outlet></router-outlet>
+</div>
 
-<router-outlet />

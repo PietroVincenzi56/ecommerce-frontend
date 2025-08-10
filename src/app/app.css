@@ -1,35 +1,65 @@
+/* Navbar */
 .navbar {
+  position: sticky;
+  top: 10px; /* spazio sopra */
+  z-index: 1000;
+
+  max-width: 1200px;  /* max larghezza */
+  margin: 10px auto;  /* centrata orizzontalmente */
+  padding: 8px 20px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+
   background-color: #232f3e;
   color: white;
+
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+  border-radius: 12px; 
+}
+  .navbar-left {
+  display: flex;
+  align-items: center; /* centra verticalmente logo e testo */
+  gap: 12px;
+ 
 }
 
 .logo {
   height: 40px;
-  margin-right: 10px;
+  display: block;
 }
 
 .welcome-text {
   font-size: 16px;
   color: #fff;
+  margin: 0;
+  line-height: 40px; /* per centratura verticale col logo */
+  white-space: nowrap; /* impedisce il wrapping del testo */
+
 }
 
-.navbar-left,
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  white-space: nowrap; /* impedisce il wrapping del testo */
+  flex-shrink: 0; 
 }
 
 .nav-button {
   background-color: #febd69;
   color: #111;
   border: none;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  background-color: #f3a847;
 }
