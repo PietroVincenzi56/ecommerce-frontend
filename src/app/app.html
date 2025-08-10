@@ -7,8 +7,7 @@
   </div>
 
   <div class="navbar-right">
-    <button (click)="goToCart()" class="nav-button"> 🛒 Carrello </button>
-
+    <button *ngIf="!isAdmin" (click)="goToCart()" class="nav-button"> 🛒 Carrello </button>
 
     <button *ngIf="!isLoggedIn" (click)="login()" class="nav-button">
       Login
