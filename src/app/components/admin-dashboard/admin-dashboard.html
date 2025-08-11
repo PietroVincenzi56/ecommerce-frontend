@@ -27,25 +27,26 @@
     <h4>Prodotti esistenti</h4>
     <ul>
       <li *ngFor="let product of products">
-        
         <!-- Vista normale -->
-        <div *ngIf="editingProduct?.id !== product.id">
+        <ng-container *ngIf="editingProduct?.id !== product.id; else editBlock">
           <strong>{{ product.name }}</strong> - €{{ product.price }}
           <button (click)="startEditing(product)">Modifica</button>
           <button (click)="deleteProduct(product.id)">Elimina</button>
-        </div>
+        </ng-container>
 
-        <!-- Vista modifica -->
-        <div *ngIf="editingProduct as ep">
-          <input [(ngModel)]="ep.name" placeholder="Nome" />
-          <input [(ngModel)]="ep.description" placeholder="Descrizione" />
-          <input [(ngModel)]="ep.price" type="number" placeholder="Prezzo" />
-          <input [(ngModel)]="ep.quantity" type="number" placeholder="Quantità" />
-          <button (click)="saveProduct()">Salva</button>
-          <button (click)="cancelEdit()">Annulla</button>
-        </div>
-
+        <!-- Modifica -->
+        <ng-template #editBlock>
+          <ng-container *ngIf="editingProduct as ep">
+            <input [(ngModel)]="ep.name" name="name-{{product.id}}" placeholder="Nome" />
+            <input [(ngModel)]="ep.description" name="desc-{{product.id}}" placeholder="Descrizione" />
+            <input [(ngModel)]="ep.price" name="price-{{product.id}}" type="number" placeholder="Prezzo" />
+            <input [(ngModel)]="ep.quantity" name="qty-{{product.id}}" type="number" placeholder="Quantità" />
+            <button (click)="saveProduct()">Salva</button>
+            <button (click)="cancelEdit()">Annulla</button>
+          </ng-container>
+        </ng-template>
       </li>
+
     </ul>
   </section>
 </div>

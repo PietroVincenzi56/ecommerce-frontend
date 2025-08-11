@@ -1,23 +1,24 @@
 <div class="product-detail-card" *ngIf="product">
-  <h2 class="product-name">{{ product.name }}</h2>
-  <div class="image-wrapper">
-    <img src="assets/placeholder.jpg" alt="{{ product.name }}" />
-  </div>
-  <p class="product-description">{{ product.description }}</p>
-  <p class="product-price">{{ product.price | currency:'EUR' }}</p>
+  <div class="product-detail-content">
+    <div class="image-wrapper">
+      <img src="assets/placeholder.jpg" alt="{{ product.name }}" />
+    </div>
 
-  <div class="add-to-cart">
-    <label for="quantity">Quantità:</label>
+    <div class="product-info">
+      <h2 class="product-name">{{ product.name }}</h2>
+      <p class="product-description">{{ product.description }}</p>
+      <p class="product-price">{{ product.price | currency:'EUR' }}</p>
 
-<div class="quantity-controls">
-  <button (click)="decrease()">-</button>
-  <span>{{ quantity }}</span>
-  <button (click)="increase()">+</button>
-</div>
-
-    <button (click)="addToCart(quantity)">
-      Aggiungi al carrello
-    </button>
+      <div class="add-to-cart">
+        <label for="quantity">Quantità:</label>
+        <div class="quantity-controls">
+          <button (click)="decrease()">-</button>
+          <span>{{ quantity }}</span>
+          <button (click)="increase()">+</button>
+        </div>
+        <button (click)="addToCart(quantity)">Aggiungi al carrello</button>
+      </div>
+    </div>
   </div>
 </div>
 
