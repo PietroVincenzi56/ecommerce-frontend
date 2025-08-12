@@ -9,18 +9,25 @@
       <p class="product-description">{{ product.description }}</p>
       <p class="product-price">{{ product.price | currency:'EUR' }}</p>
 
-      <p *ngIf="maxQuantity === 0" class="out-of-stock"> Prodotto esaurito</p>
-
-
-      <div class="add-to-cart">
-        <label for="quantity">Quantità:</label>
-        <div class="quantity-controls">
-          <button (click)="decrease()">-</button>
-          <span>{{ quantity }}</span>
-          <button (click)="increase()">+</button>
+    <div class="add-to-cart">
+            
+        <!-- Se disponibile -->
+        <div *ngIf="maxQuantity > 0">
+          <label for="quantity">Quantità:</label>
+          <div class="quantity-controls">
+            <button (click)="decrease()">-</button>
+            <span>{{ quantity }}</span>
+            <button (click)="increase()">+</button>
+          </div>
+          <button (click)="addToCart(quantity)">Aggiungi al carrello</button>
         </div>
-        <button (click)="addToCart(quantity)">Aggiungi al carrello</button>
-      </div>
+
+        <!-- Se esaurito -->
+        <div *ngIf="maxQuantity === 0">
+          <button class="out-of-stock" disabled>Prodotto esaurito</button>
+        </div>
+
+
     </div>
   </div>
 </div>
