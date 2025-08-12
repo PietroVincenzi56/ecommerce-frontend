@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { UserService } from '../../services/user.service';
 import { Product } from '../../model/product.model';
 import { CommonModule } from '@angular/common'; 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
+
 
 @Component({
   selector: 'app-product-list',
@@ -17,12 +20,26 @@ export class ProductList implements OnInit {
     searchName: string = '';
     searchPrice: number | null = null;
     sortBy: string = 'id';
+    isLoggedIn = false;
 
+    constructor(private productService: ProductService, 
+                private userService: UserService,
+                private keycloakService: KeycloakService)
+     {}
 
-    constructor(private productService: ProductService) {}
-
-    ngOnInit(): void {
+    async ngOnInit(){
       this.loadAllProducts();
+       this.isLoggedIn = await this.keycloakService.isLoggedIn();
+      if (this.isLoggedIn) {
+        this.userService.getCurrentUser().subscribe({
+          next: (user) => {
+        },
+      error: (err) => {
+        console.error('Errore nel recupero utente:', err);
+      }
+    });
+
+      }
     }
 
     loadAllProducts(): void {

@@ -3,7 +3,7 @@
     <a routerLink="/">
       <img src="assets/icona.png" alt="eCommerce" class="logo" />
     </a>
-    <span *ngIf="isLoggedIn" class="welcome-text">Ciao, {{ userName }}</span>
+    <span *ngIf="isLoggedIn" class="welcome-text">Ciao, {{ userName | titlecase }}</span>
   </div>
 
   <div class="navbar-right">
