@@ -18,7 +18,7 @@ import { UserService } from '../../services/user.service';
 })
 export class ProductDetail implements OnInit {
   product: Product | null = null;
-  quantity: number = 1; 
+  quantity: number = 0; 
   maxQuantity: number = 1;
   
   constructor(
@@ -61,13 +61,16 @@ export class ProductDetail implements OnInit {
       return;
     }
 
+
     //  Utente loggato: aggiungi al carrello
-    this.cartService.addToCart(this.product.id, quantity).subscribe({
-      next: () => {
-        alert(`Aggiunti ${quantity} prodotti al carrello`);
-      },
-      error: (err) => console.error('Errore nell\'aggiunta al carrello:', err),
-    });
+    if(this.quantity > 0){
+      this.cartService.addToCart(this.product.id, quantity).subscribe({
+        next: () => {
+          alert(`Aggiunti ${quantity} prodotti al carrello`);
+        },
+        error: (err) => console.error('Errore nell\'aggiunta al carrello:', err),
+      });
+    }
   }
 
   increase() {
