@@ -23,11 +23,11 @@
     <h3>I tuoi ordini:</h3>
     <ul>
       <li *ngFor="let order of orders">
-        <strong>Ordine #{{ order.id }}</strong> - {{ order.time | date: 'short' }}
+        <strong>Ordine del {{ order.time | date: 'short' }} </strong>
         <ul>
           <li *ngFor="let po of order.productOrders">
             <a (click)="goToProductDetail(po.product.id)">
-              {{ po.product.name + ' × ' + po.quantity + ' @ €' + po.priceAtPurchase }}
+              {{ po.product.name + ', quantita:' + po.quantity + ' - prezzo: €' + po.priceAtPurchase }}
             </a>
           </li>
         </ul>
