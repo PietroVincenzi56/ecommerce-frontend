@@ -60,7 +60,7 @@
 
 .out-of-stock {
   display: inline-block;
-  background-color: #ff4d4d; /* rosso acceso */
+  background-color: #ff4d4d; 
   color: white;
   font-weight: bold;
   padding: 6px 12px;
