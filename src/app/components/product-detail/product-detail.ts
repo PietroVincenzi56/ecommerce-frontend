@@ -18,7 +18,7 @@ import { UserService } from '../../services/user.service';
 })
 export class ProductDetail implements OnInit {
   product: Product | null = null;
-  quantity: number = 0; 
+  quantity: number = 1; 
   maxQuantity: number = 1;
   
   constructor(
@@ -30,23 +30,27 @@ export class ProductDetail implements OnInit {
   ) {}
 
   async ngOnInit() {
-  const isLoggedIn = await this.keycloakService.isLoggedIn();
+    const isLoggedIn = await this.keycloakService.isLoggedIn();
 
-  if (isLoggedIn) {
-    this.userService.getCurrentUser();
+    if (isLoggedIn) {
+      this.userService.getCurrentUser();
+    }
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) { //controllo che sia giusto l'id
+      this.productService.getProductById(+id).subscribe({
+        next: (data) => {
+          this.product = data;
+          this.maxQuantity = this.product?.quantity; 
+          if(this.maxQuantity == 0)
+            this.quantity=0;
+          console.log(this.maxQuantity);
+        },
+        error: (err) => console.error('Errore nel prodotto passato:', err)
+      }); 
+      }
   }
 
-  const id = this.route.snapshot.paramMap.get('id');
-  if (id) { //controllo che sia giusto l'id
-    this.productService.getProductById(+id).subscribe({
-      next: (data) => {
-        this.product = data;
-        this.maxQuantity = this.product?.quantity; 
-      },
-      error: (err) => console.error('Errore nel prodotto passato:', err)
-    }); 
-  }
-}
   async addToCart(quantity: number) {
     const loggedIn = await this.keycloakService.isLoggedIn();
     if (!loggedIn) {
