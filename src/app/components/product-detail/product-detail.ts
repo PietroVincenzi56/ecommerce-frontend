@@ -42,8 +42,9 @@ export class ProductDetail implements OnInit {
         next: (data) => {
           this.product = data;
           this.maxQuantity = this.product?.quantity; 
-          if(this.maxQuantity == 0)
+          if(this.maxQuantity == 0){
             this.quantity=0;
+          }
           console.log(this.maxQuantity);
         },
         error: (err) => console.error('Errore nel prodotto passato:', err)

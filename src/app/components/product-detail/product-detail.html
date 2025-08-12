@@ -9,6 +9,9 @@
       <p class="product-description">{{ product.description }}</p>
       <p class="product-price">{{ product.price | currency:'EUR' }}</p>
 
+      <p *ngIf="maxQuantity === 0" class="out-of-stock"> Prodotto esaurito</p>
+
+
       <div class="add-to-cart">
         <label for="quantity">Quantità:</label>
         <div class="quantity-controls">
