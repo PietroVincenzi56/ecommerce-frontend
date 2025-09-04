@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { ProductService } from '../../services/product.service';
+import { OrderService } from '../../services/order.service';
 import { User } from '../../model/user.model';
 import { Product } from '../../model/product.model';
-
+import { Order } from '../../model/order.model';
 import { KeycloakService } from 'keycloak-angular';
 
 
@@ -21,6 +22,7 @@ export class AdminDashboard implements OnInit {
 
   users: User[] = [];
   products: Product[] = [];
+  orders: Order[] = [];
   newProduct: Partial<Product> = {
     name: '',
     description: '',
@@ -34,13 +36,14 @@ export class AdminDashboard implements OnInit {
   constructor(
     private keycloakService: KeycloakService,
     private userService: UserService,
-    private productService: ProductService
+    private productService: ProductService,
+    private orderService: OrderService
   ) {}
 
     ngOnInit(): void {
     this.loadUsers();
     this.loadProducts();
-  
+    this.loadOrders();
   }
 
   loadUsers() {
@@ -56,6 +59,14 @@ export class AdminDashboard implements OnInit {
       error: err => console.error('Errore caricamento prodotti:', err)
     });
   }
+
+  loadOrders(){
+    this.orderService.getAllOrders().subscribe({
+      next: orders => this.orders = orders,
+      error: err => console.error('Errore caricamento prodotti:', err)  
+    })
+  }
+
 
   addProduct() {
     this.productService.createProduct(this.newProduct as Product).subscribe({

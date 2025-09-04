@@ -6,7 +6,7 @@
     <h3>Utenti Registrati</h3>
     <ul>
       <li *ngFor="let user of users">
-        {{ user.name }} {{ user.surname }} - {{ user.email }}
+        {{ user.name }} {{ user.surname }} - {{ user.email }} - {{ user.address }} - {{ user.telephoneNumber }}
       </li>
     </ul>
   </section>
@@ -49,4 +49,25 @@
 
     </ul>
   </section>
+
+  <!-- Sezione Ordini -->
+  <section>
+    <h3>Ordini Effettuati</h3>
+    <ul>
+      <li *ngFor="let order of orders.slice().reverse()">
+        <strong>Ordine #{{ order.id }}</strong> - {{ order.time | date:'dd/MM/yyyy' }}  
+        <br>
+        Cliente: {{ order.buyer.name }} ({{ order.buyer.email }})
+        <br>
+        Prodotti:
+        <ul>
+          <li *ngFor="let item of order.productOrders">
+            {{ item.product.name}} - Quantità: {{ item.quantity }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+
 </div>

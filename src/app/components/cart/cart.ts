@@ -83,7 +83,7 @@ export class CartComponent implements OnInit {
       console.error('Errore durante l\'ordine:', err);
       let message = 'Credito insufficente.';
       if (err.error && err.error.message) {
-        message += ' ' + err.error.message;
+        message = ' ' + err.error.message;
       }
       alert(message);
     }
